@@ -1,0 +1,2 @@
+tipoProducto,id,nombre,precio,fechaCaducidad,lote,ubicacion,medicionActual,limiteReferencia
+REFRIGERADO,P101,Yogurt Natural,25.5,2026-04-05,L-11,CamaraA,6.0,4.0
