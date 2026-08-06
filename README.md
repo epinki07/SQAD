@@ -1,54 +1,46 @@
-# SQAD — Sistema de Control de Calidad para Almacenes de Alimentos
+# SQAD
 
-Sistema de gestion de inventarios de alimentos desarrollado en Java con arquitectura por capas. Gestiona productos refrigerados, congelados y secos, y emite alertas automaticas cuando los parametros de temperatura, humedad o caducidad estan fuera de rango.
+Sistema de control de calidad para almacenes de alimentos, desarrollado en Java con separacion por capas. Gestiona productos refrigerados, congelados y secos, persiste inventario en CSV y emite alertas cuando temperatura, humedad o caducidad salen de rango.
 
-## Por que existe
+## Contexto
 
-Mientras trabajaba en Food Sense durante IFTP2026, el problema del control de alimentos me parecia mas amplio de lo que la competencia pedia. Construi SQAD por cuenta propia para llevar esa logica hasta un sistema real con capas, persistencia y reglas de negocio propias. Nadie me lo pidio; queria ver hasta donde llegaba.
+SQAD nacio como extension tecnica de Food Sense durante Invent for the Planet 2026. La idea fue llevar el problema de monitoreo de alimentos a un sistema de consola con reglas de negocio, persistencia y manejo de errores propio.
 
-## Que hace
+## Funcionalidades
 
-- Clasifica productos por categoria (refrigerados, congelados, secos)
-- Controla temperatura, humedad y fechas de caducidad por categoria
-- Emite alertas cuando algun parametro sale del rango definido
-- Persiste los datos en CSV sin base de datos externa
-
-## Parametros por categoria
-
-| Categoria | Temperatura | Humedad |
-|-----------|-------------|---------|
-| Refrigerados | 0 a 5 C | 40-60% |
-| Congelados | -18 C o menos | 50-70% |
-| Secos | 10 a 21 C | 30-50% |
-
-## Como correrlo
-
-```bash
-git clone https://github.com/epinki07/SQAD.git
-cd SQAD
-javac -d out src/**/*.java
-java -cp out com.sqad.Main
-```
+- Alta, busqueda, listado y gestion de productos.
+- Clasificacion por tipo de producto.
+- Validacion de temperatura y humedad segun categoria.
+- Alertas por riesgo de calidad y caducidad.
+- Persistencia en `productos.csv`.
+- Excepciones de dominio para datos invalidos, duplicados y productos inexistentes.
 
 ## Estructura
 
-```
+```text
 SQAD/
-├── src/
-│   └── com.sqad/
-│       ├── Main.java
-│       ├── model/
-│       ├── repository/
-│       ├── service/
-│       └── util/
-└── data/
-    └── productos.csv
+├── sistema/
+│   ├── aplicacion/       # Entrada de consola
+│   ├── contratos/        # Interfaces de repositorio
+│   ├── excepciones/      # Errores de dominio
+│   ├── modelo/           # Entidades y enums
+│   ├── persistencia/     # Lectura/escritura CSV
+│   └── servicio/         # Inventario e iteradores
+├── productos.csv
+└── DOCUMENTO_TECNICO.md
 ```
 
-## Tech Stack
+## Ejecucion
 
-Java 11+, arquitectura por capas (presentacion, servicio, repositorio), persistencia en CSV.
+```bash
+javac -d out $(find sistema -name "*.java")
+java -cp out sistema.aplicacion.Principal
+```
 
-## Autor
+## Stack
 
-Diego Ramirez Magana — [LinkedIn](https://www.linkedin.com/in/diego-ramirez-maga%C3%B1a-b15022298/) | [GitHub](https://github.com/epinki07) | dramirezmagana@gmail.com
+Java, POO, arquitectura por capas, persistencia CSV.
+
+## Derechos
+
+Codigo publicado para revision profesional. Sin licencia de reutilizacion; todos los derechos reservados.
